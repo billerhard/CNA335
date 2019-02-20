@@ -1,0 +1,1 @@
+59 23 * * * /bin/bash /home/pi/backups.sh
