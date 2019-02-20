@@ -4,6 +4,7 @@ Description=My Hello World Service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/bin/bash /home/pi/hello-systemd.sh
+ExecStart=/bin/bash /home/bill/hello-systemd.sh
 
 [Install]
+WantedBy=multi-user.target
