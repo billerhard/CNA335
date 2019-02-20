@@ -1,0 +1,9 @@
+[Unit]
+Description=My Hello World Service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/bash /home/pi/hello-systemd.sh
+
+[Install]
