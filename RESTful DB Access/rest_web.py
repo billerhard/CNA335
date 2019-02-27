@@ -33,9 +33,9 @@ from flask import Flask, redirect, url_for, request, render_template
 app = Flask(__name__)
 
 
-@app.route('/search/<zip>', methods=['POST', 'GET'])
-def search(zip):
-    return 'welcome %s' % zip
+@app.route('/search', methods=['POST'])
+def search(zipcode):
+    return 'welcome %s' % zipcode
 
 
 @app.route('/update', methods=['POST'])
