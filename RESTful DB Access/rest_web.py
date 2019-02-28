@@ -39,19 +39,19 @@ def search():
     return 'welcome %s' % zipcode
 
 
-@app.route('/update', methods=['POST'])
+@app.route('/update/result', methods=['POST'])
 def update():
     zipcode = request.form['zip']
     population = request.form['pop']
     return 'updated! zipcode - %s population - %s' % (zipcode, population)
 
 
-@app.route('/xfers')
+@app.route('/input')
 def xfers():
     return render_template('search.html')
 
 
-@app.route('/xferu')
+@app.route('/update')
 def xferu():
     return render_template('update.html')
 
