@@ -53,7 +53,7 @@ def login():
 
 @app.route('/')
 def root():
-    return render_template('login.html')
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
