@@ -12,17 +12,8 @@ import os
 def connect_to_sql():
     conn = mysql.connector.connect(user='root', password='',
                                    host='127.0.0.1',
-                                   database='cna330')
+                                   database='cna335')
     return conn
-
-
-def create_tables(cursor, table, fields):
-    fields.insert(0, table)
-    fields = tuple(fields)
-    query = '''CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTO_INCREMENT, %s TEXT, %s TEXT, %s TEXT, ''' \
-            '''%s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT);''' % fields
-
-    return query_sql(cursor, query)
 
 
 def query_sql(cursor, query):
@@ -102,12 +93,11 @@ def jobhunt(cursor, arg_dict):
 
 
 def main():
-    fields = ["id", "job_id", "post_date", "title", "location", "full_part", "description", "apply_info", "company",
-              "salary", "raw_message"]
+
+    fields = ["Zipcode", "ZipCodeType", "City", "State", "LocationType", "Latitude", "Longitude", "Location", "Decommisioned", "TaxReturnsFiled", "EstimatedPopulation", "TotalWages"]
     conn = connect_to_sql()
     cursor = conn.cursor()
     arg_dict = load_config_file(sys.argv[1]).split('\n')
-    create_tables(cursor, arg_dict[0], fields)
     jobhunt(cursor, arg_dict)
 
 
