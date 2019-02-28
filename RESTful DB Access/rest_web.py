@@ -33,22 +33,27 @@ from flask import Flask, redirect, url_for, request, render_template
 app = Flask(__name__)
 
 
-@app.route('/search', methods=['POST'])
-def search(zipcode):
+@app.route('/search', methods=['GET'])
+def search():
+    zipcode = request.args.get('zip')
     return 'welcome %s' % zipcode
 
 
 @app.route('/update', methods=['POST'])
-def update(zip):
-    return 'updated! %s' % zip
+def update():
+    zipcode = request.form['zip']
+    population = request.form['pop']
+    return 'updated! zipcode - %s population - %s' % (zipcode, population)
 
 
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    if request.method == 'POST':
-        user = request.form['nm']
-        return redirect(url_for('search', zip=user))
+@app.route('/xfers')
+def xfers():
+    return render_template('search.html')
 
+
+@app.route('/xferu')
+def xferu():
+    return render_template('update.html')
 
 
 @app.route('/')
