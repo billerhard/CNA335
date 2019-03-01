@@ -5,7 +5,6 @@
 """Hosts a web server on port 5000 (5 Points) Has 2 pages: /search and /update (20 Points)
 /search queries an SQL DB and prints out the row data /update updates an SQL DB row"""
 
-
 '''Launches web server on port 5000 (1 Point) Queries the DB and returns information (1 Point)
 Updates the DB (1 Point) Uses XML or JSON -packed messages to transport data (2 Points)'''
 
@@ -44,10 +43,9 @@ def search():
 
 @app.route('/update/result', methods=['POST'])
 def update():
-
     zipcode = request.form['zip']
     population = request.form['pop']
-    jsonpage = json.dumps({'zip':zipcode, 'pop':population})
+    jsonpage = json.dumps({'zip': zipcode, 'pop': population})
 
     return update_pop(jsonpage)
 
@@ -67,6 +65,11 @@ def root():
     return render_template('index.html')
 
 
+@app.errorhandler(404)
+def four_oh_four(error):
+    return 'Four-Oh-Four Page not found!'
+
+
 def connect_to_sql():
     conn = mysql.connector.connect(user='root', password='', host='127.0.0.1', database='cna335')
     return conn
@@ -80,7 +83,6 @@ def search_zipcode(zipcode):
     query = '''SELECT %s FROM %s WHERE %s="%s";''' % ("*", "zipcodes", "Zipcode", zipcode)
     cursor.execute(query)
     response = cursor.fetchall()
-    print(response)
     return jsonify(response)
 
 
@@ -92,7 +94,8 @@ def update_pop(jsonpage):
     cursor.execute(query)
     if not cursor.fetchall():
         return 'BROKED! No updates for you.'
-    query = '''UPDATE %s SET %s = "%s" WHERE %s = "%s";''' % ("zipcodes", "EstimatedPopulation", jsonpage['pop'], "Zipcode", jsonpage['zip'])
+    query = '''UPDATE %s SET %s = "%s" WHERE %s = "%s";''' % (
+    "zipcodes", "EstimatedPopulation", jsonpage['pop'], "Zipcode", jsonpage['zip'])
     cursor.execute(query)
     return 'updated! zipcode - %s population - %s' % (jsonpage['zip'], jsonpage['pop'])
 
