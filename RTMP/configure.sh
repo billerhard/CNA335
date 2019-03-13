@@ -1,3 +1,5 @@
+#!/bin/bash
+
 sudo apt install build-essential
 sudo apt install libpcre3
 sudo apt install libpcre3-dev
